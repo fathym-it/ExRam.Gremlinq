@@ -178,6 +178,8 @@ new <#= iface #> Where<TProjection>(Expression<Func<<#= GetElement(iface) #>, TP
 <# foreach(var iface in Typed(baseInterfaces.Concat(MakeOrdered(baseInterfaces)))) { #>
     public partial interface <#= iface #>
     {
+        new <#= iface #> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= GetElement(iface) #>[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 

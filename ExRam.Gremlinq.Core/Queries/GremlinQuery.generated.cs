@@ -1441,6 +1441,8 @@ namespace ExRam.Gremlinq.Core
 
 
 
+
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Anonymize() => Anonymize();
         IGremlinQuery<TResult> IGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1448,6 +1450,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQuery<TElement>.As<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<IGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IGremlinQuery<TElement>> IGremlinQuery<TElement>.Fold() => Fold<IGremlinQuery<TElement>>();
+
+        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Anonymize() => Anonymize();
         IValueGremlinQuery<TResult> IValueGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1455,6 +1459,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IValueGremlinQuery<TElement>.As<TTargetQuery>(Func<IValueGremlinQuery<TElement>, StepLabel<IValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IValueGremlinQuery<TElement>> IValueGremlinQuery<TElement>.Fold() => Fold<IValueGremlinQuery<TElement>>();
+
+        IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Anonymize() => Anonymize();
         IArrayGremlinQuery<TResult, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Cast<TResult>() => Cast<TResult>();
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Coin(double probability) => Coin(probability);
 
@@ -1462,6 +1468,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IArrayGremlinQuery<TElement, TFoldedQuery>.As<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, StepLabel<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IArrayGremlinQuery<TElement, TFoldedQuery>> IArrayGremlinQuery<TElement, TFoldedQuery>.Fold() => Fold<IArrayGremlinQuery<TElement, TFoldedQuery>>();
+
+        IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Anonymize() => Anonymize();
         IElementGremlinQuery<TResult> IElementGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1469,6 +1477,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IElementGremlinQuery<TElement>.As<TTargetQuery>(Func<IElementGremlinQuery<TElement>, StepLabel<IElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IElementGremlinQuery<TElement>> IElementGremlinQuery<TElement>.Fold() => Fold<IElementGremlinQuery<TElement>>();
+
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Anonymize() => Anonymize();
         IVertexGremlinQuery<TResult> IVertexGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1476,6 +1486,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IVertexGremlinQuery<TElement>.As<TTargetQuery>(Func<IVertexGremlinQuery<TElement>, StepLabel<IVertexGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IVertexGremlinQuery<TElement>> IVertexGremlinQuery<TElement>.Fold() => Fold<IVertexGremlinQuery<TElement>>();
+
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Anonymize() => Anonymize();
         IEdgeGremlinQuery<TResult> IEdgeGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1483,6 +1495,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IEdgeGremlinQuery<TElement>.As<TTargetQuery>(Func<IEdgeGremlinQuery<TElement>, StepLabel<IEdgeGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IEdgeGremlinQuery<TElement>> IEdgeGremlinQuery<TElement>.Fold() => Fold<IEdgeGremlinQuery<TElement>>();
+
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Anonymize() => Anonymize();
         IEdgeGremlinQuery<TResult, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Cast<TResult>() => Cast<TResult>();
         IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Coin(double probability) => Coin(probability);
 
@@ -1490,6 +1504,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IEdgeGremlinQuery<TElement, TOutVertex>> IEdgeGremlinQuery<TElement, TOutVertex>.Fold() => Fold<IEdgeGremlinQuery<TElement, TOutVertex>>();
+
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Anonymize() => Anonymize();
         IEdgeGremlinQuery<TResult, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Cast<TResult>() => Cast<TResult>();
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Coin(double probability) => Coin(probability);
 
@@ -1497,6 +1513,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.As<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, StepLabel<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Fold() => Fold<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>();
+
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Anonymize() => Anonymize();
         IInEdgeGremlinQuery<TResult, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Cast<TResult>() => Cast<TResult>();
         IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Coin(double probability) => Coin(probability);
 
@@ -1504,6 +1522,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IInEdgeGremlinQuery<TElement, TInVertex>.As<TTargetQuery>(Func<IInEdgeGremlinQuery<TElement, TInVertex>, StepLabel<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IInEdgeGremlinQuery<TElement, TInVertex>> IInEdgeGremlinQuery<TElement, TInVertex>.Fold() => Fold<IInEdgeGremlinQuery<TElement, TInVertex>>();
+
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Anonymize() => Anonymize();
         IOutEdgeGremlinQuery<TResult, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Cast<TResult>() => Cast<TResult>();
         IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Coin(double probability) => Coin(probability);
 
@@ -1511,6 +1531,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOutEdgeGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IOutEdgeGremlinQuery<TElement, TOutVertex>> IOutEdgeGremlinQuery<TElement, TOutVertex>.Fold() => Fold<IOutEdgeGremlinQuery<TElement, TOutVertex>>();
+
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Anonymize() => Anonymize();
         IVertexPropertyGremlinQuery<TResult, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Cast<TResult>() => Cast<TResult>();
         IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Coin(double probability) => Coin(probability);
 
@@ -1518,6 +1540,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IVertexPropertyGremlinQuery<TElement, TPropertyValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>();
+
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Anonymize() => Anonymize();
         IVertexPropertyGremlinQuery<TResult, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Cast<TResult>() => Cast<TResult>();
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Coin(double probability) => Coin(probability);
 
@@ -1525,6 +1549,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>();
+
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Anonymize() => Anonymize();
         IPropertyGremlinQuery<TResult> IPropertyGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1532,6 +1558,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IPropertyGremlinQuery<TElement>.As<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<IPropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IPropertyGremlinQuery<TElement>> IPropertyGremlinQuery<TElement>.Fold() => Fold<IPropertyGremlinQuery<TElement>>();
+
+        IOrderedGremlinQuery<TElement> IOrderedGremlinQuery<TElement>.Anonymize() => Anonymize();
         IOrderedGremlinQuery<TResult> IOrderedGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IOrderedGremlinQuery<TElement> IOrderedGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1539,6 +1567,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedGremlinQuery<TElement>.As<TTargetQuery>(Func<IOrderedGremlinQuery<TElement>, StepLabel<IOrderedGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IGremlinQuery<TElement>> IOrderedGremlinQuery<TElement>.Fold() => Fold<IGremlinQuery<TElement>>();
+
+        IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.Anonymize() => Anonymize();
         IOrderedValueGremlinQuery<TResult> IOrderedValueGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1546,6 +1576,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedValueGremlinQuery<TElement>.As<TTargetQuery>(Func<IOrderedValueGremlinQuery<TElement>, StepLabel<IOrderedValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IValueGremlinQuery<TElement>> IOrderedValueGremlinQuery<TElement>.Fold() => Fold<IValueGremlinQuery<TElement>>();
+
+        IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.Anonymize() => Anonymize();
         IOrderedArrayGremlinQuery<TResult, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.Cast<TResult>() => Cast<TResult>();
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.Coin(double probability) => Coin(probability);
 
@@ -1553,6 +1585,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.As<TTargetQuery>(Func<IOrderedArrayGremlinQuery<TElement, TFoldedQuery>, StepLabel<IOrderedArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IArrayGremlinQuery<TElement, TFoldedQuery>> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.Fold() => Fold<IArrayGremlinQuery<TElement, TFoldedQuery>>();
+
+        IOrderedElementGremlinQuery<TElement> IOrderedElementGremlinQuery<TElement>.Anonymize() => Anonymize();
         IOrderedElementGremlinQuery<TResult> IOrderedElementGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IOrderedElementGremlinQuery<TElement> IOrderedElementGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1560,6 +1594,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedElementGremlinQuery<TElement>.As<TTargetQuery>(Func<IOrderedElementGremlinQuery<TElement>, StepLabel<IOrderedElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IElementGremlinQuery<TElement>> IOrderedElementGremlinQuery<TElement>.Fold() => Fold<IElementGremlinQuery<TElement>>();
+
+        IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.Anonymize() => Anonymize();
         IOrderedVertexGremlinQuery<TResult> IOrderedVertexGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1567,6 +1603,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedVertexGremlinQuery<TElement>.As<TTargetQuery>(Func<IOrderedVertexGremlinQuery<TElement>, StepLabel<IOrderedVertexGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IVertexGremlinQuery<TElement>> IOrderedVertexGremlinQuery<TElement>.Fold() => Fold<IVertexGremlinQuery<TElement>>();
+
+        IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.Anonymize() => Anonymize();
         IOrderedEdgeGremlinQuery<TResult> IOrderedEdgeGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
@@ -1574,6 +1612,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedEdgeGremlinQuery<TElement>.As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TElement>, StepLabel<IOrderedEdgeGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IEdgeGremlinQuery<TElement>> IOrderedEdgeGremlinQuery<TElement>.Fold() => Fold<IEdgeGremlinQuery<TElement>>();
+
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.Anonymize() => Anonymize();
         IOrderedEdgeGremlinQuery<TResult, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.Cast<TResult>() => Cast<TResult>();
         IOrderedEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.Coin(double probability) => Coin(probability);
 
@@ -1581,6 +1621,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedEdgeGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IOrderedEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IEdgeGremlinQuery<TElement, TOutVertex>> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.Fold() => Fold<IEdgeGremlinQuery<TElement, TOutVertex>>();
+
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Anonymize() => Anonymize();
         IOrderedEdgeGremlinQuery<TResult, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Cast<TResult>() => Cast<TResult>();
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Coin(double probability) => Coin(probability);
 
@@ -1588,6 +1630,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, StepLabel<IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Fold() => Fold<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>();
+
+        IOrderedInEdgeGremlinQuery<TElement, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.Anonymize() => Anonymize();
         IOrderedInEdgeGremlinQuery<TResult, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.Cast<TResult>() => Cast<TResult>();
         IOrderedInEdgeGremlinQuery<TElement, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.Coin(double probability) => Coin(probability);
 
@@ -1595,6 +1639,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedInEdgeGremlinQuery<TElement, TInVertex>.As<TTargetQuery>(Func<IOrderedInEdgeGremlinQuery<TElement, TInVertex>, StepLabel<IOrderedInEdgeGremlinQuery<TElement, TInVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IInEdgeGremlinQuery<TElement, TInVertex>> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.Fold() => Fold<IInEdgeGremlinQuery<TElement, TInVertex>>();
+
+        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.Anonymize() => Anonymize();
         IOrderedOutEdgeGremlinQuery<TResult, TOutVertex> IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.Cast<TResult>() => Cast<TResult>();
         IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.Coin(double probability) => Coin(probability);
 
@@ -1602,6 +1648,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IOutEdgeGremlinQuery<TElement, TOutVertex>> IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.Fold() => Fold<IOutEdgeGremlinQuery<TElement, TOutVertex>>();
+
+        IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>.Anonymize() => Anonymize();
         IOrderedVertexPropertyGremlinQuery<TResult, TPropertyValue> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>.Cast<TResult>() => Cast<TResult>();
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>.Coin(double probability) => Coin(probability);
 
@@ -1609,6 +1657,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>.As<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>, StepLabel<IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IVertexPropertyGremlinQuery<TElement, TPropertyValue>> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>();
+
+        IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Anonymize() => Anonymize();
         IOrderedVertexPropertyGremlinQuery<TResult, TPropertyValue, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Cast<TResult>() => Cast<TResult>();
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Coin(double probability) => Coin(probability);
 
@@ -1616,6 +1666,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.As<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, StepLabel<IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<TElement[], IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>();
+
+        IOrderedPropertyGremlinQuery<TElement> IOrderedPropertyGremlinQuery<TElement>.Anonymize() => Anonymize();
         IOrderedPropertyGremlinQuery<TResult> IOrderedPropertyGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IOrderedPropertyGremlinQuery<TElement> IOrderedPropertyGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 

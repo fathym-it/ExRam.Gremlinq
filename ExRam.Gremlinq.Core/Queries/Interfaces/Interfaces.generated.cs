@@ -1737,6 +1737,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
 
     public partial interface IGremlinQuery<TElement>
     {
+        new IGremlinQuery<TElement> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<IGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1747,6 +1749,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IValueGremlinQuery<TElement>
     {
+        new IValueGremlinQuery<TElement> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IValueGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IValueGremlinQuery<TElement>, StepLabel<IValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1757,6 +1761,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IArrayGremlinQuery<TArray, TQuery>
     {
+        new IArrayGremlinQuery<TArray, TQuery> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, StepLabel<TArray[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, StepLabel<IArrayGremlinQuery<TArray, TQuery>, TArray>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1767,6 +1773,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IElementGremlinQuery<TElement>
     {
+        new IElementGremlinQuery<TElement> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IElementGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IElementGremlinQuery<TElement>, StepLabel<IElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1777,6 +1785,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IVertexGremlinQuery<TVertex>
     {
+        new IVertexGremlinQuery<TVertex> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, StepLabel<TVertex[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, StepLabel<IVertexGremlinQuery<TVertex>, TVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1787,6 +1797,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IEdgeGremlinQuery<TEdge>
     {
+        new IEdgeGremlinQuery<TEdge> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, StepLabel<IEdgeGremlinQuery<TEdge>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1797,6 +1809,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
+        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, StepLabel<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1807,6 +1821,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
     {
+        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, StepLabel<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1817,6 +1833,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
     {
+        new IInEdgeGremlinQuery<TEdge, TInVertex> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, StepLabel<IInEdgeGremlinQuery<TEdge, TInVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1827,6 +1845,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
     {
+        new IOutEdgeGremlinQuery<TEdge, TOutVertex> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, StepLabel<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1837,6 +1857,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
     {
+        new IVertexPropertyGremlinQuery<TProperty, TValue> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, StepLabel<TProperty[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, StepLabel<IVertexPropertyGremlinQuery<TProperty, TValue>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1847,6 +1869,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
     {
+        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, StepLabel<TProperty[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1857,6 +1881,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IPropertyGremlinQuery<TElement>
     {
+        new IPropertyGremlinQuery<TElement> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<IPropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1867,6 +1893,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedGremlinQuery<TElement>
     {
+        new IOrderedGremlinQuery<TElement> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedGremlinQuery<TElement>, StepLabel<IOrderedGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1877,6 +1905,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedValueGremlinQuery<TElement>
     {
+        new IOrderedValueGremlinQuery<TElement> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedValueGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedValueGremlinQuery<TElement>, StepLabel<IOrderedValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1887,6 +1917,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedArrayGremlinQuery<TArray, TQuery>
     {
+        new IOrderedArrayGremlinQuery<TArray, TQuery> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedArrayGremlinQuery<TArray, TQuery>, StepLabel<TArray[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedArrayGremlinQuery<TArray, TQuery>, StepLabel<IOrderedArrayGremlinQuery<TArray, TQuery>, TArray>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1897,6 +1929,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedElementGremlinQuery<TElement>
     {
+        new IOrderedElementGremlinQuery<TElement> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedElementGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedElementGremlinQuery<TElement>, StepLabel<IOrderedElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1907,6 +1941,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedVertexGremlinQuery<TVertex>
     {
+        new IOrderedVertexGremlinQuery<TVertex> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedVertexGremlinQuery<TVertex>, StepLabel<TVertex[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedVertexGremlinQuery<TVertex>, StepLabel<IOrderedVertexGremlinQuery<TVertex>, TVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1917,6 +1953,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedEdgeGremlinQuery<TEdge>
     {
+        new IOrderedEdgeGremlinQuery<TEdge> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge>, StepLabel<IOrderedEdgeGremlinQuery<TEdge>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1927,6 +1965,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
+        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, StepLabel<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1937,6 +1977,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
     {
+        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, StepLabel<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1947,6 +1989,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex>
     {
+        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, StepLabel<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1957,6 +2001,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>
     {
+        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, StepLabel<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1967,6 +2013,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue>
     {
+        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, StepLabel<TProperty[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, StepLabel<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1977,6 +2025,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
     {
+        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, StepLabel<TProperty[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, StepLabel<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
@@ -1987,6 +2037,8 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     }
     public partial interface IOrderedPropertyGremlinQuery<TElement>
     {
+        new IOrderedPropertyGremlinQuery<TElement> Anonymize();
+
         TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedPropertyGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOrderedPropertyGremlinQuery<TElement>, StepLabel<IOrderedPropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 

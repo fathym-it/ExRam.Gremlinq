@@ -153,6 +153,8 @@ namespace ExRam.Gremlinq.Core
 
 
 <# foreach(var iface in Typed(substitutedBaseInterfaces.Concat(MakeOrdered(substitutedBaseInterfaces)))){ #>
+
+        <#= iface #> <#= iface #>.Anonymize() => Anonymize();
         <#= iface.Replace(GetElement(iface), "TResult") #> <#= iface #>.Cast<TResult>() => Cast<TResult>();
         <#= iface #> <#= iface #>.Coin(double probability) => Coin(probability);
 
