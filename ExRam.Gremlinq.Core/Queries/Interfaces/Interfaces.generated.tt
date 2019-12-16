@@ -132,6 +132,9 @@ namespace ExRam.Gremlinq.Core
 <# foreach(var iface in Untyped(baseInterfaces)) { #>
     public partial interface <#= iface #>
     {
+        TTargetQuery Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
         new <#= iface #><TTarget> OfType<TTarget>();
     }
 <# } #>

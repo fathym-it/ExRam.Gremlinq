@@ -81,6 +81,9 @@ namespace ExRam.Gremlinq.Core
 
 
 <# foreach(var iface in Untyped(substitutedBaseInterfaces)){ #>
+        TTargetQuery <#= iface #>.Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, object>, TTargetQuery> continuation) => Aggregate(new StepLabel<<#= iface #>, object>(Semantics), continuation);
+        TTargetQuery <#= iface #>.As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, object>, TTargetQuery> continuation) => As(new StepLabel<<#= iface #>, object>(Semantics), continuation);
+
         <#= iface + "<TResult>" #> <#= iface #>.Cast<TResult>() => Cast<TResult>();
         IGremlinQuery<dynamic> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
         IGremlinQuery<TResult> <#= iface #>.Project<TResult>(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);

@@ -1163,18 +1163,30 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IGremlinQuery
     {
+        TTargetQuery Aggregate<TTargetQuery>(Func<IGremlinQuery, StepLabel<IGremlinQuery, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery As<TTargetQuery>(Func<IGremlinQuery, StepLabel<IGremlinQuery, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
         new IGremlinQuery<TTarget> OfType<TTarget>();
     }
     public partial interface IElementGremlinQuery
     {
+        TTargetQuery Aggregate<TTargetQuery>(Func<IElementGremlinQuery, StepLabel<IElementGremlinQuery, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery As<TTargetQuery>(Func<IElementGremlinQuery, StepLabel<IElementGremlinQuery, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
         new IElementGremlinQuery<TTarget> OfType<TTarget>();
     }
     public partial interface IVertexGremlinQuery
     {
+        TTargetQuery Aggregate<TTargetQuery>(Func<IVertexGremlinQuery, StepLabel<IVertexGremlinQuery, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery As<TTargetQuery>(Func<IVertexGremlinQuery, StepLabel<IVertexGremlinQuery, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
         new IVertexGremlinQuery<TTarget> OfType<TTarget>();
     }
     public partial interface IEdgeGremlinQuery
     {
+        TTargetQuery Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery, StepLabel<IEdgeGremlinQuery, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery As<TTargetQuery>(Func<IEdgeGremlinQuery, StepLabel<IEdgeGremlinQuery, object>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
         new IEdgeGremlinQuery<TTarget> OfType<TTarget>();
     }
     

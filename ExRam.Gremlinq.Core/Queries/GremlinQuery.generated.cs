@@ -914,15 +914,27 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IPropertyGremlinQuery<TElement>.Union<TTargetQuery>(params Func<IPropertyGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
 
 
+        TTargetQuery IGremlinQuery.Aggregate<TTargetQuery>(Func<IGremlinQuery, StepLabel<IGremlinQuery, object>, TTargetQuery> continuation) => Aggregate(new StepLabel<IGremlinQuery, object>(Semantics), continuation);
+        TTargetQuery IGremlinQuery.As<TTargetQuery>(Func<IGremlinQuery, StepLabel<IGremlinQuery, object>, TTargetQuery> continuation) => As(new StepLabel<IGremlinQuery, object>(Semantics), continuation);
+
         IGremlinQuery<TResult> IGremlinQuery.Cast<TResult>() => Cast<TResult>();
         IGremlinQuery<dynamic> IGremlinQuery.Project(Func<IProjectBuilder<IGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
         IGremlinQuery<TResult> IGremlinQuery.Project<TResult>(Func<IProjectBuilder<IGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
+        TTargetQuery IElementGremlinQuery.Aggregate<TTargetQuery>(Func<IElementGremlinQuery, StepLabel<IElementGremlinQuery, object>, TTargetQuery> continuation) => Aggregate(new StepLabel<IElementGremlinQuery, object>(Semantics), continuation);
+        TTargetQuery IElementGremlinQuery.As<TTargetQuery>(Func<IElementGremlinQuery, StepLabel<IElementGremlinQuery, object>, TTargetQuery> continuation) => As(new StepLabel<IElementGremlinQuery, object>(Semantics), continuation);
+
         IElementGremlinQuery<TResult> IElementGremlinQuery.Cast<TResult>() => Cast<TResult>();
         IGremlinQuery<dynamic> IElementGremlinQuery.Project(Func<IProjectBuilder<IElementGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
         IGremlinQuery<TResult> IElementGremlinQuery.Project<TResult>(Func<IProjectBuilder<IElementGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
+        TTargetQuery IVertexGremlinQuery.Aggregate<TTargetQuery>(Func<IVertexGremlinQuery, StepLabel<IVertexGremlinQuery, object>, TTargetQuery> continuation) => Aggregate(new StepLabel<IVertexGremlinQuery, object>(Semantics), continuation);
+        TTargetQuery IVertexGremlinQuery.As<TTargetQuery>(Func<IVertexGremlinQuery, StepLabel<IVertexGremlinQuery, object>, TTargetQuery> continuation) => As(new StepLabel<IVertexGremlinQuery, object>(Semantics), continuation);
+
         IVertexGremlinQuery<TResult> IVertexGremlinQuery.Cast<TResult>() => Cast<TResult>();
         IGremlinQuery<dynamic> IVertexGremlinQuery.Project(Func<IProjectBuilder<IVertexGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
         IGremlinQuery<TResult> IVertexGremlinQuery.Project<TResult>(Func<IProjectBuilder<IVertexGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
+        TTargetQuery IEdgeGremlinQuery.Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery, StepLabel<IEdgeGremlinQuery, object>, TTargetQuery> continuation) => Aggregate(new StepLabel<IEdgeGremlinQuery, object>(Semantics), continuation);
+        TTargetQuery IEdgeGremlinQuery.As<TTargetQuery>(Func<IEdgeGremlinQuery, StepLabel<IEdgeGremlinQuery, object>, TTargetQuery> continuation) => As(new StepLabel<IEdgeGremlinQuery, object>(Semantics), continuation);
+
         IEdgeGremlinQuery<TResult> IEdgeGremlinQuery.Cast<TResult>() => Cast<TResult>();
         IGremlinQuery<dynamic> IEdgeGremlinQuery.Project(Func<IProjectBuilder<IEdgeGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
         IGremlinQuery<TResult> IEdgeGremlinQuery.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
