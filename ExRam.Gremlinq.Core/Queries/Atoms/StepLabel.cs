@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
     }
 
 #pragma warning disable 660, 661
-    public class StepLabel<TQuery, TElement> : StepLabel<TElement> where TQuery : IGremlinQuery
+    public class StepLabel<TQuery, TElement> : StepLabel<TElement> where TQuery : IGremlinQueryBase
 #pragma warning restore 660,661
     {
         internal StepLabel(QuerySemantics querySemantics) : base(querySemantics)

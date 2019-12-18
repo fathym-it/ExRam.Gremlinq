@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal abstract class GremlinQueryBase
     {
-        private static readonly ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, bool, IGremlinQuery>> QueryTypes = new ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, bool, IGremlinQuery>>();
+        private static readonly ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, bool, IGremlinQueryBase>> QueryTypes = new ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, bool, IGremlinQueryBase>>();
 
         private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
             .GetInterfaces()
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core
                     var surfaceVisibleParameter = Expression.Parameter(typeof(bool));
 
                     return Expression
-                        .Lambda<Func<IImmutableList<Step>, IGremlinQueryEnvironment, bool, IGremlinQuery>>(
+                        .Lambda<Func<IImmutableList<Step>, IGremlinQueryEnvironment, bool, IGremlinQueryBase>>(
                             Expression.New(
                                 genericType.GetConstructor(new[]
                                 {

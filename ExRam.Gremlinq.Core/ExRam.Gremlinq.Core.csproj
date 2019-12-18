@@ -23,11 +23,11 @@
     <None Update="Queries\T4\Constants.tt">
       <Generator></Generator>
     </None>
-    <None Update="Queries\Interfaces\Interfaces.generated.tt">
+    <None Update="Queries\Interfaces\Interfaces.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Interfaces.generated.cs</LastGenOutput>
     </None>
-    <None Update="Queries\GremlinQuery.generated.tt">
+    <None Update="Queries\GremlinQuery.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GremlinQuery.generated.cs</LastGenOutput>
     </None>
@@ -49,12 +49,12 @@
     <Compile Update="Queries\Interfaces\Interfaces.generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Interfaces.generated.tt</DependentUpon>
+      <DependentUpon>Interfaces.tt</DependentUpon>
     </Compile>
- <Compile Update="Queries\GremlinQuery.generated.cs">
+    <Compile Update="Queries\GremlinQuery.generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>GremlinQuery.generated.tt</DependentUpon>
+      <DependentUpon>GremlinQuery.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   
