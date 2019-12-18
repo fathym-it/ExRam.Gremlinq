@@ -453,7 +453,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void As_with_type_change()
         {
-            IGremlinQuery<Person> g = _g
+            IGremlinQueryBaseRec<Person, IVertexGremlinQuery<Person>> g = _g
                 .V<Person>();
 
             g
@@ -717,7 +717,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V()
-                .Invoking(__ => __.Coalesce<IGremlinQuery>())
+                .Invoking(__ => __.Coalesce<IGremlinQueryBase>())
                 .Should()
                 .Throw<ArgumentException>();
         }
@@ -2182,9 +2182,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
+                .Cast<object>()
                 .RepeatUntil(
-                    __ => __.InE().OutV(),
-                    __ => __.V<Company>())
+                    __ => __.InE().OutV().Cast<object>(),
+                    __ => __.V<Company>().Cast<object>())
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).repeat(__.inE().outV()).until(__.V().hasLabel(_b)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "Company"); ;
@@ -2410,7 +2411,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .Union<IGremlinQuery>(
+                .Union<IGremlinQueryBase>(
                     __ => __.Out<WorksFor>(),
                     __ => __.OutE<LivesIn>())
                 .Should()
@@ -2418,19 +2419,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("Person", "WorksFor", "LivesIn");
         }
 
-        [Fact]
-        public void Union_untyped()
-        {
-            IVertexGremlinQuery q = _g
-                .V<Person>();
 
-            q
+        [Fact]
+        public void Union_different_types2()
+        {
+            _g
+                .V<Person>()
                 .Union(
-                    __ => __,
-                    __ => __.Out<LivesIn>())
+                    __ => __.Out<WorksFor>().Lower(),
+                    __ => __.OutE<LivesIn>().Lower().Cast<object>())
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).union(__.identity(), __.out(_b)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("Person", "LivesIn");
+                .SerializeToGroovy("V().hasLabel(_a).union(__.out(_b), __.outE(_c))")
+                .WithParameters("Person", "WorksFor", "LivesIn");
         }
 
         [Fact]
@@ -2438,9 +2438,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
+                .Cast<object>()
                 .UntilRepeat(
-                    __ => __.InE().OutV(),
-                    __ => __.V<Company>())
+                    __ => __.InE().OutV().Cast<object>(),
+                    __ => __.V<Company>().Cast<object>())
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).until(__.V().hasLabel(_b)).repeat(__.inE().outV()).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "Company"); ;
@@ -3805,19 +3806,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).where(__.out(_b)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "LivesIn");
-        }
-
-        [Fact]
-        public void Where_traversal_untyped()
-        {
-            IGremlinQuery g = _g
-                .V<Person>();
-
-            g
-                .Where(_ => _.Count())
-                .Should()
-                .SerializeToGroovy("V().hasLabel(_a).where(__.count()).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("Person");
         }
 
         [Fact]
