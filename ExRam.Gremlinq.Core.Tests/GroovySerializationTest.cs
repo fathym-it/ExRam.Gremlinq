@@ -522,6 +522,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Explicit_As()
+        {
+            var stepLabel = new StepLabel<Person>();
+
+            _g
+                .V<Person>()
+                .As(stepLabel)
+                .Select(stepLabel)
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person", "l1");
+        }
+
+        [Fact]
         public void Choose_one_case()
         {
             _g
