@@ -144,7 +144,19 @@ namespace ExRam.Gremlinq.Core
                         {
                             _canConvert = false;
 
-                            return _deserializer.TryDeserialize(token, objectType, _environment);
+                            var customSerializer = _environment.Model.PropertiesModel.CustomSerializers.FirstOrDefault(cs => cs.ShouldDeserialize(objectType));
+
+                            var result = new object();
+
+                            if (customSerializer != null && reader is JTokenReader jtReader)
+                            {
+                                result = customSerializer.Deserialize(jtReader.CurrentToken);
+                            }
+
+                            if (customSerializer == null || result == null)
+                                result = _deserializer.TryDeserialize(token, objectType, _environment);
+
+                            return result;
                         }
                         finally
                         {
