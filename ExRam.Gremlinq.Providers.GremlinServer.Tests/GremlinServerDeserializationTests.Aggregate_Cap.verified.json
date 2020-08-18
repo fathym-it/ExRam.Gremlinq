@@ -1,144 +1,125 @@
 [
   [
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 66
-        },
-        "label": "Person"
-      }
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 69,
+      "Label": "Person"
     },
     {
-      "@type": "g:Int64",
-      "@value": 1
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 7,
+      "Label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 7
-        },
-        "label": "Person"
-      }
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 200,
+      "Label": "Person"
     },
     {
-      "@type": "g:Int64",
-      "@value": 1
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 201,
+      "Label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 200
-        },
-        "label": "Person"
-      }
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 11,
+      "Label": "Person"
     },
     {
-      "@type": "g:Int64",
-      "@value": 1
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 17,
+      "Label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 11
-        },
-        "label": "Person"
-      }
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 22,
+      "Label": "Person"
     },
     {
-      "@type": "g:Int64",
-      "@value": 1
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 27,
+      "Label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 17
-        },
-        "label": "Person"
-      }
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 34,
+      "Label": "Person"
     },
     {
-      "@type": "g:Int64",
-      "@value": 1
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 43,
+      "Label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 22
-        },
-        "label": "Person"
-      }
-    },
-    {
-      "@type": "g:Int64",
-      "@value": 1
-    },
-    {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 27
-        },
-        "label": "Person"
-      }
-    },
-    {
-      "@type": "g:Int64",
-      "@value": 1
-    },
-    {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 34
-        },
-        "label": "Person"
-      }
-    },
-    {
-      "@type": "g:Int64",
-      "@value": 1
-    },
-    {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 43
-        },
-        "label": "Person"
-      }
-    },
-    {
-      "@type": "g:Int64",
-      "@value": 1
-    },
-    {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 51
-        },
-        "label": "Person"
-      }
-    },
-    {
-      "@type": "g:Int64",
-      "@value": 1
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 51,
+      "Label": "Person"
     }
   ]
 ]

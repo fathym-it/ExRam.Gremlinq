@@ -17,6 +17,8 @@ namespace ExRam.Gremlinq.Core
     {
 <# for(var i = 2; i <= 16; i++) { #>
         IValueGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQueryBase.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>) => Project<(<#= GetArgumentList("T{0}", i) #>)>(p => p.ToTuple()<#= GetArgumentList(".By(_ => _.Select(label{0}))", "", i) #>);
+
+        IValueTupleGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IValueTupleGremlinQueryBase<TElement>.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("Expression<Func<TElement, T{0}>> projection{0}", i) #>) => Select<IValueTupleGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)>>(<#= GetArgumentList("projection{0}", i) #>);
 <# } #>
 
 <# foreach(var iface in Untyped(substitutedBaseInterfaces)){ #>
@@ -39,9 +41,14 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQueryBase> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice) => Choose(traversalPredicate, trueChoice);
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Choose<TTargetQuery>(Func<IChooseBuilder<<#= iface #>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);
 
+        TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<<#= iface #>, TTargetQuery> trueChoice, Func<<#= iface #>, TTargetQuery> falseChoice) => Choose(predicate, trueChoice, falseChoice);
+        TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<<#= iface #>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
+
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Coalesce<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Coin(double probability) => Coin(probability);
+
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.CyclicPath() => CyclicPath();
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Dedup() => DedupGlobal();
 
@@ -50,6 +57,8 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Emit() => Emit();
 
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        IArrayGremlinQuery<TElement[], TElement, <#= iface #>> IGremlinQueryBaseRec<TElement, <#= iface #>>.ForceArray() => ChangeQueryType<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>>();
 
         IArrayGremlinQuery<TElement[], TElement, <#= iface #>> IGremlinQueryBaseRec<TElement, <#= iface #>>.Fold() => Fold<<#= iface #>>();
 
@@ -60,7 +69,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.Inject(params TElement[] elements) => Inject(elements);
         
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Limit(long count) => Limit(count);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Limit(long count) => LimitGlobal(count);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -76,12 +85,18 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Or(params Func<<#= iface #>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
+        <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.Order(Func<IOrderBuilder<TElement, <#= iface #>>, IOrderBuilderWithBy<TElement, <#= iface #>>> projection) => OrderGlobal(projection);
+        <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.OrderLocal(Func<IOrderBuilder<TElement, <#= iface #>>, IOrderBuilderWithBy<TElement, <#= iface #>>> projection) => OrderLocal(projection);
+
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Order(Func<IOrderBuilder<<#= iface #>>, IOrderBuilderWithBy<<#= iface #>>> projection) => OrderGlobal(projection);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.OrderLocal(Func<IOrderBuilder<<#= iface #>>, IOrderBuilderWithBy<<#= iface #>>> projection) => OrderLocal(projection);
+
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
-        IValueGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
+        IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Repeat(Func<<#= iface #>, <#= iface #>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -91,11 +106,13 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SideEffect(Func<<#= iface #>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SimplePath() => SimplePath();
+
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Skip(long count) => Skip(count, Scope.Global);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Tail(long count) => Tail(count);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Tail(long count) => TailGlobal(count);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.TailLocal(long count) => TailLocal(count);
 
@@ -103,6 +120,7 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.Union<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
 
+        <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Where(ILambda lambda) => Where(lambda);
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Where(Func<<#= iface #>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
 
@@ -115,13 +133,9 @@ namespace ExRam.Gremlinq.Core
 
 
 <# foreach(var iface in Typed(Element(substitutedBaseInterfaces))){ #>
-        <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.Order(Func<IOrderBuilder<TElement, <#= iface #>>, IOrderBuilderWithBy<TElement, <#= iface #>>> projection) => OrderGlobal(projection);
-        <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.OrderLocal(Func<IOrderBuilder<TElement, <#= iface #>>, IOrderBuilderWithBy<TElement, <#= iface #>>> projection) => OrderLocal(projection);
-
         <#= iface #> IElementGremlinQueryBaseRec<<#= iface #>>.Property(string key, object? value) => Property(key, value);
         <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, TProjectedValue value) => <#= iface.StartsWith("IVertexGremlinQuery") ? "VertexProperty(projection, value);" : "Property(projection, value);" #>
 
-        <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
 <# } #>
    }

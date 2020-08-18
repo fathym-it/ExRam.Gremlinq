@@ -1,82 +1,35 @@
 [
   {
-    "Age": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
+    "Age": 21
   },
   {
-    "Age": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
+    "Age": 21
   },
   {
-    "Age": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
+    "Age": 21
   },
   {
-    "Age": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
+    "Age": 21
   },
   {
-    "Age": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
+    "Age": 21
   },
   {
-    "Age": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
+    "Age": 21
   },
   {
-    "Age": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
+    "Age": 21
   },
   {
-    "Age": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
+    "Age": 21
   },
   {
-    "Age": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
+    "Age": 21
   },
   {
-    "Age": [
-      {
-        "@type": "g:Int32",
-        "@value": 21
-      }
-    ]
+    "Age": 21
+  },
+  {
+    "Age": 21
   }
 ]

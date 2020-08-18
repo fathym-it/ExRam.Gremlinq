@@ -6,10 +6,10 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment, Func<IWebSocketGremlinQueryEnvironmentBuilder, IWebSocketGremlinQueryEnvironmentBuilder> transformation)
+        public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment, Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
         {
             return environment
-                .ConfigureWebSocket(transformation)
+                .UseWebSocket(transformation)
                 .ConfigureSerializer(serializer => serializer
                     .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                         .Override<PropertyStep>((step, env, overridden, recurse) => overridden(Cardinality.List.Equals(step.Cardinality) ? new PropertyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set) : step, env, recurse))))

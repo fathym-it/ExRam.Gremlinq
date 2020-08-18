@@ -2,11 +2,12 @@
   {
     "Age": 21,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 151,
+      "Id": 161,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -14,17 +15,18 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": 66,
+    "Id": 69,
     "Label": "Person"
   },
   {
     "Age": 21,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 153,
+      "Id": 163,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -38,11 +40,12 @@
   {
     "Age": 21,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 155,
+      "Id": 165,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -56,11 +59,31 @@
   {
     "Age": 21,
     "Gender": 0,
+    "Image": "AQIDBAUGBwg=",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 157,
+      "Id": 167,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": 201,
+    "Label": "Person"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "Image": "",
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 169,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -74,11 +97,12 @@
   {
     "Age": 21,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 159,
+      "Id": 171,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -92,11 +116,12 @@
   {
     "Age": 21,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 161,
+      "Id": 173,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -110,11 +135,12 @@
   {
     "Age": 21,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 163,
+      "Id": 175,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -128,11 +154,12 @@
   {
     "Age": 21,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 165,
+      "Id": 177,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -146,11 +173,12 @@
   {
     "Age": 21,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 167,
+      "Id": 179,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -164,11 +192,12 @@
   {
     "Age": 21,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 169,
+      "Id": 181,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"

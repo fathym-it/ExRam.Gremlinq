@@ -11,10 +11,10 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQueryEnvironmentExtensions
     {
         public static IGremlinQueryEnvironment UseGremlinServer(this IGremlinQueryEnvironment environment,
-            Func<IWebSocketGremlinQueryEnvironmentBuilder, IWebSocketGremlinQueryEnvironmentBuilder> builderAction)
+            Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> builderAction)
         {
             return environment
-                .ConfigureWebSocket(builderAction)
+                .UseWebSocket(builderAction)
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
                     .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))

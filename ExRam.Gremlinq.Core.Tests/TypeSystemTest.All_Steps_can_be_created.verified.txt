@@ -213,6 +213,14 @@
     }
   },
   {
+    Item1: 'CyclicPathStep',
+    Item2: {}
+  },
+  {
+    Item1: 'SimplePathStep',
+    Item2: {}
+  },
+  {
     Item1: 'DedupStep',
     Item2: {
       Scope: {
@@ -716,6 +724,31 @@
           {}
         ]
       }
+    }
+  },
+  {
+    Item1: 'SelectKeysStep',
+    Item2: {
+      Keys: [
+        {
+          RawKey: {
+            EnumName: 'T',
+            EnumValue: 'id'
+          }
+        },
+        {
+          RawKey: {
+            EnumName: 'T',
+            EnumValue: 'id'
+          }
+        },
+        {
+          RawKey: {
+            EnumName: 'T',
+            EnumValue: 'id'
+          }
+        }
+      ]
     }
   },
   {

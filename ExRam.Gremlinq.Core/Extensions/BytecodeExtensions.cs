@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class BytecodeExtensions
     {
-        public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode)
+        public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode, GroovyFormatting formatting = GroovyFormatting.BindingsOnly)
         {
             var builder = new StringBuilder();
             var bindings = new Dictionary<object, string>();
@@ -107,8 +107,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 bindingKey = (char)('a' + next % 26) + bindingKey;
                                 next /= 26;
-                            }
-                            while (next > 0);
+                            } while (next > 0);
 
                             bindingKey = "_" + bindingKey;
                             bindings.Add(obj, bindingKey);
@@ -125,9 +124,15 @@ namespace ExRam.Gremlinq.Core
 
             Append(bytecode);
 
-            return new GroovyGremlinQuery(
+            var ret = new GroovyGremlinQuery(
                 builder.ToString(),
-                variables);
+                variables,
+                true,
+                false);
+
+            return formatting == GroovyFormatting.AllowInlining
+                ? ret.Inline()
+                : ret;
         }
     }
 }

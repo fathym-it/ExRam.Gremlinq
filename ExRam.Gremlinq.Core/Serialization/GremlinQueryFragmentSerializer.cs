@@ -28,13 +28,13 @@ namespace ExRam.Gremlinq.Core
                     : fragment;
             }
 
-            public IGremlinQueryFragmentSerializer Override<TFragment>(Func<TFragment, IGremlinQueryEnvironment, Func<TFragment, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object>, IGremlinQueryFragmentSerializer, object> serializer)
+            public IGremlinQueryFragmentSerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer)
             {
                 return new GremlinQueryFragmentSerializerImpl(
                     _dict.SetItem(
                         typeof(TFragment),
                         TryGetSerializer(typeof(TFragment), typeof(TFragment)) is Func<TFragment, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> existingFragmentSerializer
-                            ? (fragment, env, baseSerializer, recurse) => serializer(fragment, env, existingFragmentSerializer, recurse)
+                            ? (fragment, env, overridden, recurse) => serializer(fragment, env, existingFragmentSerializer, recurse)
                             : serializer));
             }
 
@@ -188,6 +188,7 @@ namespace ExRam.Gremlinq.Core
                 .Override<CountStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("count", recurse, env, step.Scope)
                     : CreateInstruction("count"))
+                .Override<CyclicPathStep>((step, env, overridden, recurse) => CreateInstruction("cyclicPath"))
                 .Override<DateTime>((dateTime, env, overridden, recurse) => recurse.Serialize(new DateTimeOffset(dateTime.ToUniversalTime()), env))
                 .Override<DedupStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("dedup", recurse, env, step.Scope)
@@ -211,6 +212,32 @@ namespace ExRam.Gremlinq.Core
                         : step.Argument))
                 .Override<HasPredicateStep>((step, env, overridden, recurse) =>
                 {
+                    static Step UnwindHasPredicateStep(HasPredicateStep step)
+                    {
+                        if (step.Predicate is { } p && p.ContainsNullArgument())
+                        {
+                            if (p.IsAnd() || p.IsOr())
+                            {
+                                var replacement = new Traversal[]
+                                {
+                                    UnwindHasPredicateStep(new HasPredicateStep(step.Key, p.Value is P innerP ? innerP : P.Eq(p.Value))),
+                                    UnwindHasPredicateStep(new HasPredicateStep(step.Key, p.Other))
+                                };
+
+                                if (p.IsOr())
+                                    return new OrStep(replacement);
+
+                                if (p.IsAnd())
+                                    return new AndStep(replacement);
+                            }
+                        }
+
+                        return step;
+                    };
+
+                    if (UnwindHasPredicateStep(step) is Step unwound && unwound != step)
+                        return recurse.Serialize(unwound, env);
+
                     var stepName = "has";
                     var argument = (object?)step.Predicate;
 
@@ -288,17 +315,23 @@ namespace ExRam.Gremlinq.Core
                 .Override<OutEStep>((step, env, overridden, recurse) => CreateInstruction("outE", recurse, env, step.Labels))
                 .Override<OutVStep>((step, env, overridden, recurse) => CreateInstruction("outV"))
                 .Override<OtherVStep>((step, env, overridden, recurse) => CreateInstruction("otherV"))
-                .Override<P>((p, env, overridden, recurse) => new P(
-                    p.OperatorName,
-                    !(p.Value is string) && p.Value is IEnumerable enumerable
-                        ? enumerable
-                            .Cast<object>()
-                            .Select(x => recurse.Serialize(x, env))
-                            .ToArray()
-                        : recurse.Serialize(p.Value, env),
-                    p.Other is { } other
-                        ? recurse.Serialize(other, env) as P
-                        : null))
+                .Override<P>((p, env, overridden, recurse) =>
+                {
+                    if (p.Value is null)
+                        throw new NotSupportedException("Cannot serialize a P-predicate with a null-value.");
+
+                    return new P(
+                        p.OperatorName,
+                        !(p.Value is string) && p.Value is IEnumerable enumerable
+                            ? enumerable
+                                .Cast<object>()
+                                .Select(x => recurse.Serialize(x, env))
+                                .ToArray()
+                            : recurse.Serialize(p.Value, env),
+                        p.Other is { } other
+                            ? recurse.Serialize(other, env) as P
+                            : null);
+                })
                 .Override<ProfileStep>((step, env, overridden, recurse) => CreateInstruction("profile"))
                 .Override<PropertiesStep>((step, env, overridden, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
                 .Override<PropertyStep>((step, env, overridden, recurse) =>
@@ -337,7 +370,9 @@ namespace ExRam.Gremlinq.Core
                     : CreateInstruction("range", recurse, env, step.Lower, step.Upper))
                 .Override<RepeatStep>((step, env, overridden, recurse) => CreateInstruction("repeat", recurse, env, step.Traversal))
                 .Override<SelectStep>((step, env, overridden, recurse) => CreateInstruction("select", recurse, env, step.StepLabels))
+                .Override<SelectKeysStep>((step, env, overridden, recurse) => CreateInstruction("select", recurse, env, step.Keys))
                 .Override<SideEffectStep>((step, env, overridden, recurse) => CreateInstruction("sideEffect", recurse, env, step.Traversal))
+                .Override<SimplePathStep>((step, env, overridden, recurse) => CreateInstruction("simplePath"))
                 .Override<SkipStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("skip", recurse, env, step.Scope, step.Count)
                     : CreateInstruction("skip", recurse, env, step.Count))

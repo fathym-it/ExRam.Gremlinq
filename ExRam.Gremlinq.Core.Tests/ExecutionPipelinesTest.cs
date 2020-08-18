@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         private class FancyId : IFancyId
         {
-            public string Id { get; set; }
+            public string? Id { get; set; }
         }
 
         public ExecutionPipelinesTest(ITestOutputHelper output) : base(output)
@@ -71,6 +71,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
+                .Cast<string>()
                 .Verify(this);
         }
 
@@ -87,6 +88,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
+                .Cast<string>()
                 .Verify(this);
         }
 
@@ -103,6 +105,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
+                .Cast<string>()
                 .Verify(this);
         }
 
@@ -119,6 +122,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                             .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
+                .Cast<string>()
                 .Verify(this);
         }
     }

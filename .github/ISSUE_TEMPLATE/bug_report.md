@@ -17,22 +17,22 @@ A clear and concise description of what you expected to happen.
 Tell us which version of ExRam.Gremlinq you are using.
 
 **Minimal working example**
-In descending order of awesomeness, please provide at least one of the following:
+You **MUST** provide one of the following
 
-* A GitHub repository containing a maximally stripped down (i.e. minimal in regard to
-lines of code) executable project that successfully compiles but still exposes the unexpected behaviour.
+- a link to GitHub repository containing a minimal executable project
+structure that exposes the unexpected behaviour. By 'minimal' we mean that you should omit any code
+that is not directly necessary to show the unexpected behaviour. **Make sure you remove any sensible
+data (e.g. passwords etc). Don't post tons of business POCOs or DTOs that
+are not really relevant for exposing the unexpected behaviour.**
 
-* A pull request to ExRam.Gremlinq that adds a failing unit test to the ExRam.Gremlinq tests asserting
-the expected behaviour. Again, this should be as small as possible to reduce any noise.
+- a pull request to ExRam.Gremlinq that adds a failing unit test to the ExRam.Gremlinq tests asserting
+the expected behaviour. Again, this should be minimal to reduce noise.
 
-* A gist containing a complete minimal working example of the unexpected behaviour. This has the
-nice advantage that it can be forked and modified by the community, possibly adding some value for
-everyone.
-
-In any case: Make it really, really as small as can be. Don't post tons of business POCOs or DTOs that
-are not really relevant for exposing the unexpected behaviour. Also, don't post any passwords.
-
-If I can't easily grab your example and run it quickly, I may just not bother and nobody else might. 
+**In any case: The repro code must be able to checkout and run in the matter of minutes.**
+If the issue contains neither of these things and/or just incomplete code snippets it may be labelled accordingly and become stale.
+Please understand that I ask for this much effort from you in exchange for my work since
+it is tedious and time-consuming to isolate the relevant bits from an issue each time just to setup
+a new project that might not even fail then.
 
 **Additional context**
 Add any other context about the problem here.

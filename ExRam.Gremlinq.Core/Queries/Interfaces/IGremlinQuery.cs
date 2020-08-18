@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using Gremlin.Net.Process.Traversal;
+using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -14,6 +16,8 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<long> Count();
         IValueGremlinQuery<long> CountLocal();
         IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
+
+        string Debug(GroovyFormatting groovyFormatting = GroovyFormatting.AllowInlining, Formatting jsonFormatting = Formatting.None);
 
         IValueGremlinQuery<object> Drop();
 
@@ -42,12 +46,30 @@ namespace ExRam.Gremlinq.Core
 
         TQuery Select<TQuery, TElement>(StepLabel<TQuery, TElement> label) where TQuery : IGremlinQueryBase;
 
-        IArrayGremlinQuery<TElement, TArrayItem, TQuery> Cap<TElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TElement, TArrayItem, TQuery>, TElement> label) where TQuery : IGremlinQueryBase;
+        IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery> Cap<TElement, TArrayItem, TOriginalQuery>(StepLabel<IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery>, TElement> label) where TOriginalQuery : IGremlinQueryBase;
     }
 
     public interface IGremlinQueryBase<TElement> : IGremlinQueryBase
     {
         new GremlinQueryAwaiter<TElement> GetAwaiter();
+
+        IElementGremlinQuery<TElement> ForceElement();
+
+        IVertexGremlinQuery<TElement> ForceVertex();
+        IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
+        IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>() where TMeta : class;
+
+        IPropertyGremlinQuery<TElement> ForceProperty();
+
+        IEdgeGremlinQuery<TElement> ForceEdge();
+        IInEdgeGremlinQuery<TElement, TInVertex> ForceInEdge<TInVertex>();
+        IOutEdgeGremlinQuery<TElement, TOutVertex> ForceOutEdge<TOutVertex>();
+        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceBothEdge<TOutVertex, TInVertex>();
+
+        IValueGremlinQuery<TElement> ForceValue();
+        IValueTupleGremlinQuery<TElement> ForceValueTuple();
+
+        IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> ForceArray();
 
         new IGremlinQuery<TElement> Lower();
 
@@ -69,6 +91,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<TSelf>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) where TTargetQuery : IGremlinQueryBase;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<TSelf, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQueryBase;
+
+        TSelf CyclicPath();
 
         TSelf Dedup();
         TSelf DedupLocal();
@@ -96,6 +120,9 @@ namespace ExRam.Gremlinq.Core
         TSelf Optional(Func<TSelf, TSelf> optionalTraversal);
         TSelf Or(params Func<TSelf, IGremlinQueryBase>[] orTraversals);
 
+        TSelf Order(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
+        TSelf OrderLocal(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
+
         TSelf Range(long low, long high);
         TSelf RangeLocal(long low, long high);
 
@@ -104,6 +131,8 @@ namespace ExRam.Gremlinq.Core
         TSelf UntilRepeat(Func<TSelf, TSelf> repeatTraversal, Func<TSelf, IGremlinQueryBase> untilTraversal);
 
         TSelf SideEffect(Func<TSelf, IGremlinQueryBase> sideEffectTraversal);
+
+        TSelf SimplePath();
 
         TSelf Skip(long count);
         TSelf SkipLocal(long count);
@@ -130,12 +159,22 @@ namespace ExRam.Gremlinq.Core
         TSelf As(StepLabel<TElement> stepLabel);
         TTargetQuery As<TTargetQuery>(Func<TSelf, StepLabel<TSelf, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
 
+        TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<TSelf, TTargetQuery> trueChoice, Func<TSelf, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQueryBase;
+        TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<TSelf, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQueryBase;
+
         IArrayGremlinQuery<TElement[], TElement, TSelf> Fold();
+
+        new IArrayGremlinQuery<TElement[], TElement, TSelf> ForceArray();
 
         TSelf Inject(params TElement[] elements);
 
         IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<TSelf, TElement>, IProjectResult> continuation);
-        IValueGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<TSelf, TElement>, IProjectResult<TResult>> continuation);
+        IValueTupleGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<TSelf, TElement>, IProjectResult<TResult>> continuation);
+
+        TSelf Order(Func<IOrderBuilder<TElement, TSelf>, IOrderBuilderWithBy<TElement, TSelf>> projection);
+        TSelf OrderLocal(Func<IOrderBuilder<TElement, TSelf>, IOrderBuilderWithBy<TElement, TSelf>> projection);
+
+        TSelf Where(Expression<Func<TElement, bool>> predicate);
     }
 
     public interface IGremlinQuery<TElement> : IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>

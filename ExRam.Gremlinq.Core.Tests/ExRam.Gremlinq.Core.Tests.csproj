@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.2;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -55,6 +55,7 @@
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.11.0" />
     <PackageReference Include="LanguageExt.Core" Version="3.3.28" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>

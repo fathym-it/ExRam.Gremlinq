@@ -33,8 +33,11 @@ namespace ExRam.Gremlinq.Core
         {
             var targetQueryType = typeof(TTargetQuery);
 
-            if (targetQueryType.IsAssignableFrom(GetType()) && targetQueryType.IsGenericType && Semantics != QuerySemantics.None)
-                return (TTargetQuery)(object)this;
+            if (targetQueryType.IsAssignableFrom(GetType()))
+            {
+                if (targetQueryType == GetType() || targetQueryType.IsGenericType && Semantics != QuerySemantics.None)
+                    return (TTargetQuery)(object)this;
+            }
 
             var genericTypeDef = targetQueryType.IsGenericType
                 ? targetQueryType.GetGenericTypeDefinition()
@@ -54,7 +57,7 @@ namespace ExRam.Gremlinq.Core
                     var inVertexType = GetMatchingType(closureType, "TInVertex");
                     var sclarType = GetMatchingType(closureType, "TValue", "TArrayItem");
                     var metaType = GetMatchingType(closureType, "TMeta");
-                    var queryType = GetMatchingType(closureType, "TQuery");
+                    var queryType = GetMatchingType(closureType, "TOriginalQuery");
 
                     var genericType = typeof(GremlinQuery<,,,,,>).MakeGenericType(
                         elementType,

@@ -287,6 +287,18 @@
     }
   },
   {
+    Item1: 'CyclicPathStep',
+    Item2: {
+      OperatorName: 'cyclicPath'
+    }
+  },
+  {
+    Item1: 'SimplePathStep',
+    Item2: {
+      OperatorName: 'simplePath'
+    }
+  },
+  {
     Item1: 'DedupStep',
     Item2: {
       OperatorName: 'dedup'
@@ -900,6 +912,26 @@
               OperatorName: 'identity'
             }
           ]
+        }
+      ]
+    }
+  },
+  {
+    Item1: 'SelectKeysStep',
+    Item2: {
+      OperatorName: 'select',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        },
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        },
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
         }
       ]
     }

@@ -18,10 +18,6 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExecutionResultDeserializer
     {
-        private static readonly ConditionalWeakTable<IGraphModel, IDictionary<string, Type[]>> ModelTypes = new ConditionalWeakTable<IGraphModel, IDictionary<string, Type[]>>();
-        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>> PopulatingSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>>();
-        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>> IgnoringSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>>();
-
         private sealed class VertexImpl : IVertex
         {
             public object? Id { get; set; }
@@ -30,166 +26,6 @@ namespace ExRam.Gremlinq.Core
         private sealed class EdgeImpl : IEdge
         {
             public object? Id { get; set; }
-        }
-
-        private sealed class GraphsonJsonSerializer : JsonSerializer
-        {
-            #region Nested
-            private sealed class GremlinContractResolver : DefaultContractResolver
-            {
-                private sealed class EmptyListValueProvider : IValueProvider
-                {
-                    private readonly object _defaultValue;
-                    private readonly IValueProvider _innerProvider;
-
-                    public EmptyListValueProvider(IValueProvider innerProvider, Type elementType)
-                    {
-                        _innerProvider = innerProvider;
-                        _defaultValue = Array.CreateInstance(elementType, 0);
-                    }
-
-                    public void SetValue(object target, object? value)
-                    {
-                        _innerProvider.SetValue(target, value ?? _defaultValue);
-                    }
-
-                    public object GetValue(object target)
-                    {
-                        return _innerProvider.GetValue(target) ?? _defaultValue;
-                    }
-                }
-
-                private sealed class EmptyDictionaryValueProvider : IValueProvider
-                {
-                    private readonly object _defaultValue;
-                    private readonly IValueProvider _innerProvider;
-
-                    public EmptyDictionaryValueProvider(IValueProvider innerProvider)
-                    {
-                        _innerProvider = innerProvider;
-                        _defaultValue = new Dictionary<string, object>();
-                    }
-
-                    public void SetValue(object target, object? value)
-                    {
-                        _innerProvider.SetValue(target, value ?? _defaultValue);
-                    }
-
-                    public object GetValue(object target)
-                    {
-                        return _innerProvider.GetValue(target) ?? _defaultValue;
-                    }
-                }
-
-                private readonly IGraphElementPropertyModel _model;
-
-                public GremlinContractResolver(IGraphElementPropertyModel model)
-                {
-                    _model = model;
-                }
-
-                protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-                {
-                    var property = base.CreateProperty(member, memberSerialization);
-
-                    if (_model.MemberMetadata.TryGetValue(member, out var key) && key.Key.RawKey is string name)
-                        property.PropertyName = name;
-
-                    return property;
-                }
-
-                protected override IValueProvider CreateMemberValueProvider(MemberInfo member)
-                {
-                    var provider = base.CreateMemberValueProvider(member);
-
-                    if (member is PropertyInfo propertyMember)
-                    {
-                        var propertyType = propertyMember.PropertyType;
-
-                        if (propertyType == typeof(IDictionary<string, object>) && propertyMember.Name == nameof(VertexProperty<object>.Properties) && typeof(IVertexProperty).IsAssignableFrom(propertyMember.DeclaringType))
-                            return new EmptyDictionaryValueProvider(provider);
-
-                        if (propertyType.IsArray)
-                            return new EmptyListValueProvider(provider, propertyType.GetElementType());
-                    }
-
-                    return provider;
-                }
-            }
-
-            private sealed class JTokenConverterConverter : JsonConverter
-            {
-                private readonly IGremlinQueryEnvironment _environment;
-                private readonly IGremlinQueryFragmentDeserializer _deserializer;
-
-                [ThreadStatic]
-                // ReSharper disable once StaticMemberInGenericType
-                private static bool _canConvert;
-
-                public JTokenConverterConverter(
-                    IGremlinQueryFragmentDeserializer deserializer,
-                    IGremlinQueryEnvironment environment)
-                {
-                    _deserializer = deserializer;
-                    _environment = environment;
-                }
-
-                public override bool CanConvert(Type objectType)
-                {
-                    if (!_canConvert)
-                    {
-                        _canConvert = true;
-
-                        return false;
-                    }
-
-                    return true;
-                }
-
-                public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-                {
-                    throw new NotSupportedException($"Cannot write to {nameof(JTokenConverterConverter)}.");
-                }
-
-                public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-                {
-                    var token = JToken.Load(reader);
-
-                    try
-                    {
-                        _canConvert = false;
-
-                        var customSerializer = _environment.Model.PropertiesModel.CustomSerializers.FirstOrDefault(cs => cs.ShouldDeserialize(objectType));
-
-                        var result = new object();
-
-                        if (customSerializer != null && reader is JTokenReader jtReader)
-                        {
-                            result = customSerializer.Deserialize(jtReader.CurrentToken);
-                        }
-
-                        if (customSerializer == null || result == null)
-                            result = _deserializer.TryDeserialize(token, objectType, _environment);
-
-                        return result;
-                    }
-                    finally
-                    {
-                        _canConvert = true;
-                    }
-                }
-            }
-            #endregion
-
-            public GraphsonJsonSerializer(
-                DefaultValueHandling defaultValueHandling,
-                IGremlinQueryEnvironment environment,
-                IGremlinQueryFragmentDeserializer fragmentDeserializer)
-            {
-                DefaultValueHandling = defaultValueHandling;
-                ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
-                Converters.Add(new JTokenConverterConverter(fragmentDeserializer, environment));
-            }
         }
 
         private sealed class GremlinQueryExecutionResultDeserializerImpl : IGremlinQueryExecutionResultDeserializer
@@ -281,91 +117,52 @@ namespace ExRam.Gremlinq.Core
             .Identity
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
-                var populatingSerializer = PopulatingSerializers
-                    .GetValue(
-                        env,
-                        closureEnv => new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>())
-                    .GetValue(
-                        recurse,
-                        closureRecurse => new GraphsonJsonSerializer(
-                            DefaultValueHandling.Populate,
-                            env,
-                            recurse));
+                var populatingSerializer = env
+                    .GetCache()
+                    .GetPopulatingJsonSerializer(recurse);
 
-                var ignoringSerializer = IgnoringSerializers
-                    .GetValue(
-                        env,
-                        closureEnv => new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>())
-                    .GetValue(
-                        recurse,
-                        closureRecurse => new GraphsonJsonSerializer(
-                            DefaultValueHandling.Ignore,
-                            env,
-                            recurse));
+                if (type == typeof(object))
+                    return jToken.ToObject<IDictionary<string, object>>(populatingSerializer);
 
-                var ret = jToken.ToObject(
-                    type,
-                    populatingSerializer);
+                var ret = jToken.ToObject(type, populatingSerializer);
 
                 if (!(ret is JToken) && jToken is JObject element)
                 {
-                    if (element.ContainsKey("id") && element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is JObject propertiesToken)
-                    {
-                        if (propertiesToken.TryUnmap() is { } jObject)
-                            propertiesToken = jObject;
+                    var ignoringSerializer = env
+                        .GetCache()
+                        .GetIgnoringJsonSerializer(recurse);
 
+                    if (element.TryGetElementProperties() is { } propertiesToken)
                         ignoringSerializer.Populate(new JTokenReader(propertiesToken), ret);
-                    }
-                }
-
-                if (ret is JObject newJObject)
-                {
-                    foreach (var property in newJObject)
-                    {
-                        if (recurse.TryDeserialize(newJObject[property.Key], typeof(JToken), env) is JToken newToken)
-                            newJObject[property.Key] = newToken;
-                    }
                 }
 
                 return ret;
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
-                if (!type.IsArray)
+                if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
                 {
-                    if (!type.IsInstanceOfType(jToken))
-                    {
-                        var itemType = default(Type);
+                    type = type.GetElementType();
 
-                        if (type.IsGenericType)
-                        {
-                            var genericTypeDefinition = type.GetGenericTypeDefinition();
-                            if (genericTypeDefinition == typeof(Nullable<>))
-                                itemType = type.GetGenericArguments()[0];
-                        }
+                    var array = Array.CreateInstance(type, 1);
+                    array.SetValue(recurse.TryDeserialize(jToken, type, env), 0);
 
-                        switch (jToken)
-                        {
-                            case JArray array when array.Count != 1:
-                                {
-                                    if (array.Count == 0 && (type.IsClass || itemType != null))
-                                    {
-                                        return default;
-                                    }
-
-                                    throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {type}.");
-                                }
-                            case JArray array:
-                                return recurse.TryDeserialize(array[0], itemType ?? type, env);
-                            case JValue jValue when jValue.Value == null:
-                                return null;
-                            case JValue jValue when itemType != null:
-                                return recurse.TryDeserialize(jValue, itemType, env);
-                        }
-                    }
+                    return array;
                 }
 
                 return overridden(jToken, type, env, recurse);
+            })
+            .Override<JToken>((jToken, type, env, overridden, recurse) =>
+            {
+                return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
+                    ? jToken.Type == JTokenType.Null
+                        ? null
+                        : recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env)
+                    : overridden(jToken, type, env, recurse);
+            })
+            .Override<JValue>((jToken, type, env, overridden, recurse) =>
+            {
+                return jToken.ToObject(type);
             })
             .Override<JValue>((jToken, type, env, overridden, recurse) =>
             {
@@ -419,31 +216,28 @@ namespace ExRam.Gremlinq.Core
 
                 return overridden(jValue, type, env, recurse);
             })
+            .Override<JValue>((jValue, type, env, overridden, recurse) =>
+            {
+                return type == typeof(byte[]) && jValue.Type == JTokenType.String
+                    ? Convert.FromBase64String(jValue.Value<string>())
+                    : overridden(jValue, type, env, recurse);
+            })
+            .Override<JValue>((jToken, type, env, overridden, recurse) =>
+            {
+                return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
+                    ? jToken.Value is null
+                        ? null
+                        : recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env)
+                    : overridden(jToken, type, env, recurse);
+            })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
                 // Elements
-                var modelTypes = ModelTypes.GetValue(
-                    env.Model,
-                    closureModel =>
-                    {
-                        return closureModel
-                            .VerticesModel
-                            .Metadata
-                            .Concat(closureModel.EdgesModel.Metadata)
-                            .GroupBy(x => x.Value.Label)
-                            .ToDictionary(
-                                group => group.Key,
-                                group => group
-                                    .Select(x => x.Key)
-                                    .ToArray(),
-                                StringComparer.OrdinalIgnoreCase);
-                    });
-
-
+                var modelTypes = env.GetCache().ModelTypes;
                 var label = jObject["label"]?.ToString();
 
                 var modelType = label != null && modelTypes.TryGetValue(label, out var types)
-                    ? types.FirstOrDefault(type => type.IsAssignableFrom(type))
+                    ? types.FirstOrDefault(possibleType => type.IsAssignableFrom(possibleType))
                     : default;
 
                 if (modelType == null)
@@ -462,19 +256,18 @@ namespace ExRam.Gremlinq.Core
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
                 //Vertex Properties
-                var nativeTypes = env.Model.NativeTypes;
-
-                if (nativeTypes.Contains(type) || (type.IsEnum && nativeTypes.Contains(type.GetEnumUnderlyingType())))
+                var nativeTypes = env.GetCache().FastNativeTypes;
+                    
+                if (nativeTypes.ContainsKey(type) || (type.IsEnum && nativeTypes.ContainsKey(type.GetEnumUnderlyingType())))
                 {
-                    if (jObject.ContainsKey("value"))
-                        return recurse.TryDeserialize(jObject["value"], type, env);
+                    if (jObject.TryGetValue("value", out var valueToken))
+                        return recurse.TryDeserialize(valueToken, type, env);
                 }
 
                 return overridden(jObject, type, env, recurse);
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
-                //@type == "g:Map"
                 if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
                     return recurse.TryDeserialize(valueToken, type, env);
 
@@ -487,10 +280,59 @@ namespace ExRam.Gremlinq.Core
                     ? recurse.TryDeserialize(unmappedObject, type, env)
                     : overridden(jObject, type, env, recurse);
             })
+            .Override<JObject>((jObject, type, env, overridden, recurse) =>
+            {
+                if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
+                {
+                    var elementType = type.GetElementType();
+
+                    if (jObject.TryGetValue("@type", out var typeToken) && "g:BulkSet".Equals(typeToken.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (jObject.TryGetValue("@value", out var valueToken) && valueToken is JArray setArray)
+                        {
+                            var array = new ArrayList();
+
+                            for (var i = 0; i < setArray.Count; i += 2)
+                            {
+                                var element = recurse.TryDeserialize(setArray[i], elementType, env);
+                                var bulk = (int)recurse.TryDeserialize(setArray[i + 1], typeof(int), env)!;
+
+                                for (var j = 0; j < bulk; j++)
+                                {
+                                    array.Add(element);
+                                }
+                            }
+
+                            return array.ToArray(elementType);
+                        }
+                    }
+                }
+
+                return overridden(jObject, type, env, recurse);
+            })
+            .Override<JArray>((jArray, type, env, overridden, recurse) =>
+            {
+                if ((!type.IsArray || env.GetCache().FastNativeTypes.ContainsKey(type)) && !type.IsInstanceOfType(jArray))
+                {
+                    return jArray.Count != 1
+                        ? jArray.Count == 0 && type.IsClass
+                            ? (object?)default
+                            : throw new JsonReaderException($"Cannot convert array\r\n\r\n{jArray}\r\n\r\nto scalar value of type {type}.")
+                        : recurse.TryDeserialize(jArray[0], type, env);
+                }
+
+                return overridden(jArray, type, env, recurse);
+            })
+            .Override<JArray>((jArray, type, env, overridden, recurse) =>
+            {
+                return type.IsAssignableFrom(typeof(object[])) && recurse.TryDeserialize(jArray, typeof(object[]), env) is object[] tokens
+                    ? tokens
+                    : overridden(jArray, type, env, recurse);
+            })
             .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {
                 //Traversers
-                if (!type.IsArray)
+                if (!type.IsArray || env.GetCache().FastNativeTypes.ContainsKey(type))
                     return overridden(jArray, type, env, recurse);
 
                 var array = default(ArrayList);

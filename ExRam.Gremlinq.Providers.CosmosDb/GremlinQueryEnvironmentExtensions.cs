@@ -14,9 +14,9 @@ namespace ExRam.Gremlinq.Core
             ICosmosDbConfigurationBuilderWithAuthKey
         {
             private readonly string? _collectionName;
-            private readonly IWebSocketGremlinQueryEnvironmentBuilder _webSocketBuilder;
+            private readonly IWebSocketGremlinQueryExecutorBuilder _webSocketBuilder;
 
-            public CosmosDbConfigurationBuilder(IWebSocketGremlinQueryEnvironmentBuilder webSocketBuilder, string? collectionName = default)
+            public CosmosDbConfigurationBuilder(IWebSocketGremlinQueryExecutorBuilder webSocketBuilder, string? collectionName = default)
             {
                 _collectionName = collectionName;
                 _webSocketBuilder = webSocketBuilder;
@@ -34,22 +34,25 @@ namespace ExRam.Gremlinq.Core
                     _collectionName);
             }
 
-            public IGremlinQueryEnvironmentBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryEnvironmentBuilder, IWebSocketGremlinQueryEnvironmentBuilder> transformation)
+            public IGremlinQueryExecutorBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation)
             {
                 return new CosmosDbConfigurationBuilder(
                     transformation(_webSocketBuilder),
                     _collectionName);
             }
 
-            public IGremlinQueryEnvironment Build()
+            public IGremlinQueryExecutor Build()
             {
                 return _webSocketBuilder.Build();
             }
+
+            public IGremlinQueryEnvironment Environment => _webSocketBuilder.Environment;
         }
 
-        public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, IGremlinQueryEnvironmentBuilder> transformation)
+        public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, IGremlinQueryExecutorBuilder> transformation)
         {
             return env
+                .UseWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetSerializationFormat(SerializationFormat.GraphSonV2))))
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
                     .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)
@@ -76,32 +79,23 @@ namespace ExRam.Gremlinq.Core
                         .Override<SkipStep>((step, env, overridden, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope), env))
                         .Override<LimitStep>((step, env, overridden, recurse) =>
                         {
-                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
                             return step.Count <= int.MaxValue
                                 ? overridden(step, env, recurse)
                                 : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
                         })
                         .Override<TailStep>((step, env, overridden, recurse) =>
                         {
-                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
                             return step.Count <= int.MaxValue
                                 ? overridden(step, env, recurse)
                                 : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
                         })
                         .Override<RangeStep>((step, env, overridden, recurse) =>
                         {
-                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
                             return step.Lower <= int.MaxValue && step.Upper <= int.MaxValue
                                 ? overridden(step, env, recurse)
                                 : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
-                        })
-                        .Override<long>((l, env, overridden, recurse) =>
-                        {
-                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-                            return recurse.Serialize((int)l, env);
                         }))
                     .ToGroovy())
-                .ConfigureWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetSerializationFormat(SerializationFormat.GraphSonV2))))
                 .StoreTimeSpansAsNumbers();
         }
     }

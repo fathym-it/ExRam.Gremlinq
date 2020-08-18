@@ -1,53 +1,45 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public interface IArrayGremlinQueryBase : IValueGremlinQueryBase
+    public interface IArrayGremlinQueryBase : IGremlinQueryBase
     {
         IValueGremlinQuery<object> Unfold();
+
         new IValueGremlinQuery<object[]> Lower();
     }
 
     public interface IArrayGremlinQueryBase<TArrayItem> : IArrayGremlinQueryBase
     {
         new IValueGremlinQuery<TArrayItem> Unfold();
+
         new IValueGremlinQuery<TArrayItem[]> Lower();
     }
 
-    public interface IArrayGremlinQueryBaseRec<TSelf> :
-        IArrayGremlinQueryBase,
-        IValueGremlinQueryBaseRec<TSelf>
-        where TSelf : IArrayGremlinQueryBaseRec<TSelf>
-    {
-
-    }
-
-    public interface IArrayGremlinQueryBase<TArray, TArrayItem, out TQuery> :
+    public interface IArrayGremlinQueryBase<TArray, TArrayItem> :
         IArrayGremlinQueryBase<TArrayItem>,
         IValueGremlinQueryBase<TArray>
     {
-        new TQuery SumLocal();
+        new IValueGremlinQuery<TArray> Lower();
+    }
 
-        new TQuery MinLocal();
+    public interface IArrayGremlinQueryBase<TArray, TArrayItem, out TOriginalQuery> :
+        IArrayGremlinQueryBase<TArray, TArrayItem>
+    {
+        new TOriginalQuery SumLocal();
 
-        new TQuery MaxLocal();
+        new TOriginalQuery MinLocal();
 
-        new TQuery MeanLocal();
+        new TOriginalQuery MaxLocal();
 
-        new TQuery Unfold();
+        new TOriginalQuery MeanLocal();
+
+        new TOriginalQuery Unfold();
 
         new IValueGremlinQuery<TArray> Lower();
     }
 
-    public interface IArrayGremlinQueryBaseRec<TArray, TArrayItem, out TQuery, TSelf> :
-        IArrayGremlinQueryBaseRec<TSelf>,
-        IArrayGremlinQueryBase<TArray, TArrayItem, TQuery>,
-        IValueGremlinQueryBaseRec<TArray, TSelf>
-        where TSelf : IArrayGremlinQueryBaseRec<TArray, TArrayItem, TQuery, TSelf>
-    {
-
-    }
-
-    public interface IArrayGremlinQuery<TArray, TArrayItem, TQuery> :
-        IArrayGremlinQueryBaseRec<TArray, TArrayItem, TQuery, IArrayGremlinQuery<TArray, TArrayItem, TQuery>>
+    public interface IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery> :
+        IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery>,
+        IGremlinQueryBaseRec<TArray, IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>
     {
 
     }

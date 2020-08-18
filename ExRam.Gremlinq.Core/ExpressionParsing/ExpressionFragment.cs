@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
     internal static class ExpressionFragmentExtensions
     {
-        public static object? GetValue(this ExpressionFragment expressionFragment, IGraphModel model)
+        public static object? GetValue(this ExpressionFragment expressionFragment)
         {
             return expressionFragment switch
             {
                 ConstantExpressionFragment c => c.Value,
-                { } x=> x.Expression?.GetValue(model),
+                { } x => x.Expression?.GetValue(),
                 _ => throw new ArgumentException()
             };
         }
@@ -33,9 +35,14 @@ namespace ExRam.Gremlinq.Core
         {
             return expression.RefersToParameter()
                 ? (ExpressionFragment)new ParameterExpressionFragment(expression)
-                : expression.TryParseStepLabelExpression(model, out var stepLabel, out var stepLabelExpression)
+                : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
                     ? new StepLabelExpressionFragment(stepLabel!, stepLabelExpression)
-                    : new ConstantExpressionFragment(expression.GetValue(model));
+                    : new ConstantExpressionFragment(expression.GetValue() switch
+                    {
+                        IEnumerable enumerable when !(enumerable is ICollection) && !model.NativeTypes.Contains(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
+                        { } val => val,
+                        _ => null
+                    });
         }
     }
 }
