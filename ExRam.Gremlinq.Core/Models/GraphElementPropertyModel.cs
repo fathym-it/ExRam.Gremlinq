@@ -14,18 +14,27 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
-            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, MemberMetadata> metadata)
+            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, MemberMetadata> metadata,
+                IList<IGraphElementPropertySerializer> customSerializers)
             {
                 MemberMetadata = metadata;
+
+                CustomSerializers = customSerializers;
             }
             
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             {
-                return new GraphElementPropertyModelImpl(
-                    transformation(MemberMetadata));
+                return new GraphElementPropertyModelImpl(transformation(MemberMetadata), CustomSerializers);
+            }
+
+            public IGraphElementPropertyModel ConfigureCustomSerializers(Func<IList<IGraphElementPropertySerializer>, IList<IGraphElementPropertySerializer>> transformation)
+            {
+                return new GraphElementPropertyModelImpl(MemberMetadata, transformation(CustomSerializers));
             }
 
             public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
+
+            public IList<IGraphElementPropertySerializer> CustomSerializers { get; }
         }
 
         private sealed class KeyLookup
@@ -74,9 +83,8 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(
-            ImmutableDictionary<MemberInfo, MemberMetadata>
-                .Empty
-                .WithComparers(MemberInfoEqualityComparer.Instance));
+            ImmutableDictionary<MemberInfo, MemberMetadata>.Empty.WithComparers(MemberInfoEqualityComparer.Instance),
+            new List<IGraphElementPropertySerializer>());
 
         private static readonly ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup> KeyLookups = new ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup>();
 

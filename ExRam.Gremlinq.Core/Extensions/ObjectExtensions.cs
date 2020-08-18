@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -36,8 +37,20 @@ namespace ExRam.Gremlinq.Core
                 {
                     var value = propertyInfo.GetValue(obj);
 
+                    var customSerializer = environment.Model.PropertiesModel.CustomSerializers.FirstOrDefault(cs => cs.ShouldSerialize(propertyInfo));
+
                     if (value != null)
-                        yield return (key, value);
+                    {
+                        if (customSerializer != null)
+                        {
+                            var values = customSerializer.Serialize(value);
+
+                            foreach (var val in values)
+                                yield return (String.IsNullOrEmpty(val.Key) ? key : new Key(val.Key), val.Value);
+                        }
+                        else
+                            yield return (key, value);
+                    }
                 }
             }
         }

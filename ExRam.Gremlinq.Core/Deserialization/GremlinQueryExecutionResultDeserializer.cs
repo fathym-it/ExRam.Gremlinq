@@ -5,8 +5,11 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Xml;
+
 using ExRam.Gremlinq.Core.GraphElements;
+
 using Gremlin.Net.Structure.IO.GraphSON;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -156,7 +159,19 @@ namespace ExRam.Gremlinq.Core
                     {
                         _canConvert = false;
 
-                        return _deserializer.TryDeserialize(token, objectType, _environment);
+                        var customSerializer = _environment.Model.PropertiesModel.CustomSerializers.FirstOrDefault(cs => cs.ShouldDeserialize(objectType));
+
+                        var result = new object();
+
+                        if (customSerializer != null && reader is JTokenReader jtReader)
+                        {
+                            result = customSerializer.Deserialize(jtReader.CurrentToken);
+                        }
+
+                        if (customSerializer == null || result == null)
+                            result = _deserializer.TryDeserialize(token, objectType, _environment);
+
+                        return result;
                     }
                     finally
                     {
@@ -332,14 +347,14 @@ namespace ExRam.Gremlinq.Core
                         switch (jToken)
                         {
                             case JArray array when array.Count != 1:
-                            {
-                                if (array.Count == 0 && (type.IsClass || itemType != null))
                                 {
-                                    return default;
-                                }
+                                    if (array.Count == 0 && (type.IsClass || itemType != null))
+                                    {
+                                        return default;
+                                    }
 
-                                throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {type}.");
-                            }
+                                    throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {type}.");
+                                }
                             case JArray array:
                                 return recurse.TryDeserialize(array[0], itemType ?? type, env);
                             case JValue jValue when jValue.Value == null:
@@ -375,12 +390,12 @@ namespace ExRam.Gremlinq.Core
                         case DateTimeOffset dateTimeOffset:
                             return dateTimeOffset;
                         default:
-                        {
-                            if (jValue.Type == JTokenType.Integer)
-                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
+                            {
+                                if (jValue.Type == JTokenType.Integer)
+                                    return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
 
-                            break;
-                        }
+                                break;
+                            }
                     }
                 }
 
@@ -516,6 +531,6 @@ namespace ExRam.Gremlinq.Core
 
                 return array?.ToArray(elementType) ?? Array.CreateInstance(elementType, 0);
             }));
-            // ReSharper restore ConvertToLambdaExpression
+        // ReSharper restore ConvertToLambdaExpression
     }
 }
