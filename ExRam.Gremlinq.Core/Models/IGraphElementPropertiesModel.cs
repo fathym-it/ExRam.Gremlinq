@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Reflection;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
@@ -51,5 +52,31 @@ namespace ExRam.Gremlinq.Core
         public virtual Func<Type, bool> ShouldDeserialize { get; protected set; }
 
         public virtual Func<PropertyInfo, bool> ShouldSerialize { get; protected set; }
+    }
+
+    public class GenericGraphElementPropertySerializer<T> : GraphElementPropertySerializer
+        where T : class
+    {
+        public GenericGraphElementPropertySerializer()
+            : base(pi =>
+            {
+                return pi.PropertyType == typeof(T);
+            },
+            obj =>
+            {
+                return new Dictionary<string, string>()
+                {
+                    { "", JsonConvert.SerializeObject(obj) }
+                };
+            },
+            type =>
+            {
+                return type == typeof(T);
+            },
+            token =>
+            {
+                return JsonConvert.DeserializeObject<T>(token[0]["value"].ToString());
+            })
+        { }
     }
 }
