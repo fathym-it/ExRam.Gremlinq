@@ -55,7 +55,6 @@ namespace ExRam.Gremlinq.Core
     }
 
     public class GenericGraphElementPropertySerializer<T> : GraphElementPropertySerializer
-        where T : class
     {
         public GenericGraphElementPropertySerializer()
             : base(pi =>
