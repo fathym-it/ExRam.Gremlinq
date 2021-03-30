@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Core
             },
             token =>
             {
-                return JsonConvert.DeserializeObject<T>(token[0]["value"].ToString());
+                return JsonConvert.DeserializeObject<T>(token[0]["value"].ToString()) ?? new object();
             })
         { }
     }
