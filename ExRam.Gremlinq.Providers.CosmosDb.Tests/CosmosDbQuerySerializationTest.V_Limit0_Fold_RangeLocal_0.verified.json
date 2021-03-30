@@ -1,8 +1,0 @@
-[
-  {
-    "Script": "V().limit(_a).fold().range(local, _a, _a)",
-    "Bindings": {
-      "_a": 0
-    }
-  }
-]

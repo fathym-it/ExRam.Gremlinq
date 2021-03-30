@@ -3,58 +3,84 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core", "ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj", "{8E7F39D7-8E11-4E11-97AF-8669A97B498C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core", "src\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj", "{8E7F39D7-8E11-4E11-97AF-8669A97B498C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.Tests", "ExRam.Gremlinq.Core.Tests\ExRam.Gremlinq.Core.Tests.csproj", "{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.Tests", "test\ExRam.Gremlinq.Core.Tests\ExRam.Gremlinq.Core.Tests.csproj", "{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb", "ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb", "src\ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.WebSocket", "ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj", "{8A621708-9F8A-4727-9D96-71B07CAF61A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.WebSocket", "src\ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj", "{8A621708-9F8A-4727-9D96-71B07CAF61A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.WebSocket.Tests", "ExRam.Gremlinq.Providers.WebSocket.Tests\ExRam.Gremlinq.Providers.WebSocket.Tests.csproj", "{60B5F66F-A08C-4ACC-AE50-1FE286829790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.WebSocket.Tests", "test\ExRam.Gremlinq.Providers.WebSocket.Tests\ExRam.Gremlinq.Providers.WebSocket.Tests.csproj", "{60B5F66F-A08C-4ACC-AE50-1FE286829790}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.Tests", "ExRam.Gremlinq.Providers.CosmosDb.Tests\ExRam.Gremlinq.Providers.CosmosDb.Tests.csproj", "{E0F57FD2-0666-42B5-95ED-14D155A47F38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.Tests", "test\ExRam.Gremlinq.Providers.CosmosDb.Tests\ExRam.Gremlinq.Providers.CosmosDb.Tests.csproj", "{E0F57FD2-0666-42B5-95ED-14D155A47F38}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Tests", "ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj", "{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Tests", "test\ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj", "{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Samples", "ExRam.Gremlinq.Samples\ExRam.Gremlinq.Samples\ExRam.Gremlinq.Samples.csproj", "{AF5D779D-C31B-4C2F-80EC-29C2FC648DFE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests.Entities", "ExRam.Gremlinq.Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj", "{65F0D284-7DD6-40DA-8B89-BDAA02326DF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests.Entities", "test\ExRam.Gremlinq.Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj", "{65F0D284-7DD6-40DA-8B89-BDAA02326DF0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2CD9652B-1596-4A02-AF9B-6CE149AB3F65}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer", "ExRam.Gremlinq.Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj", "{20804D10-7599-407F-898E-B53A6BCA5C1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer", "src\ExRam.Gremlinq.Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj", "{20804D10-7599-407F-898E-B53A6BCA5C1D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer.Tests", "ExRam.Gremlinq.Providers.GremlinServer.Tests\ExRam.Gremlinq.Providers.GremlinServer.Tests.csproj", "{91CDCB6C-CCB1-4695-9C75-6D31D807C86F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer.Tests", "test\ExRam.Gremlinq.Providers.GremlinServer.Tests\ExRam.Gremlinq.Providers.GremlinServer.Tests.csproj", "{91CDCB6C-CCB1-4695-9C75-6D31D807C86F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune", "ExRam.Gremlinq.Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj", "{E7D07EBD-5530-4843-802A-6DD0D15F7037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune", "src\ExRam.Gremlinq.Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj", "{E7D07EBD-5530-4843-802A-6DD0D15F7037}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.Tests", "ExRam.Gremlinq.Providers.Neptune.Tests\ExRam.Gremlinq.Providers.Neptune.Tests.csproj", "{C6EA6478-0A18-4D8F-B475-8370413C79BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.Tests", "test\ExRam.Gremlinq.Providers.Neptune.Tests\ExRam.Gremlinq.Providers.Neptune.Tests.csproj", "{C6EA6478-0A18-4D8F-B475-8370413C79BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.ApprovalTests", "ApprovalTests\ExRam.Gremlinq.ApprovalTests.csproj", "{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.PublicApi.Tests", "test\ExRam.Gremlinq.PublicApi.Tests\ExRam.Gremlinq.PublicApi.Tests.csproj", "{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.AspNet", "ExRam.Gremlinq.Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj", "{6E351A4C-C1E6-4EEB-A956-3E241CB377A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.AspNet", "src\ExRam.Gremlinq.Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj", "{6E351A4C-C1E6-4EEB-A956-3E241CB377A9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{179A3F19-19B0-4DE2-B843-83AF4241244A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer.AspNet", "ExRam.Gremlinq.Providers.GremlinServer.AspNet\ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj", "{A3E92EDA-3FAC-4B65-BE3E-106A1BB1167C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer.AspNet", "src\ExRam.Gremlinq.Providers.GremlinServer.AspNet\ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj", "{A3E92EDA-3FAC-4B65-BE3E-106A1BB1167C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.WebSocket.AspNet", "ExRam.Gremlinq.Providers.WebSocket.AspNet\ExRam.Gremlinq.Providers.WebSocket.AspNet.csproj", "{B15DCF7F-D3C8-4ED2-ADED-0743D5CF2377}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.WebSocket.AspNet", "src\ExRam.Gremlinq.Providers.WebSocket.AspNet\ExRam.Gremlinq.Providers.WebSocket.AspNet.csproj", "{B15DCF7F-D3C8-4ED2-ADED-0743D5CF2377}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.AspNet", "ExRam.Gremlinq.Providers.CosmosDb.AspNet\ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj", "{B3DD7F6D-49DE-42CE-97BA-F90F9820D126}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.AspNet", "src\ExRam.Gremlinq.Providers.CosmosDb.AspNet\ExRam.Gremlinq.Providers.CosmosDb.AspNet.csproj", "{B3DD7F6D-49DE-42CE-97BA-F90F9820D126}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.AspNet", "ExRam.Gremlinq.Providers.Neptune.AspNet\ExRam.Gremlinq.Providers.Neptune.AspNet.csproj", "{7C211878-D55B-444E-AFD0-4095A5B3573B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.AspNet", "src\ExRam.Gremlinq.Providers.Neptune.AspNet\ExRam.Gremlinq.Providers.Neptune.AspNet.csproj", "{7C211878-D55B-444E-AFD0-4095A5B3573B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph", "ExRam.Gremlinq.Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj", "{84D78612-38F6-4FE7-BAB1-4B94316D2299}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph", "src\ExRam.Gremlinq.Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj", "{84D78612-38F6-4FE7-BAB1-4B94316D2299}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph.AspNet", "ExRam.Gremlinq.Providers.JanusGraph.AspNet\ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj", "{69C738C8-37D2-41DB-A8DE-00E38B22BCA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph.AspNet", "src\ExRam.Gremlinq.Providers.JanusGraph.AspNet\ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj", "{69C738C8-37D2-41DB-A8DE-00E38B22BCA6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph.Tests", "ExRam.Gremlinq.Providers.JanusGraph.Tests\ExRam.Gremlinq.Providers.JanusGraph.Tests.csproj", "{A1DA8260-60D7-4D47-A7FA-C83E727653D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph.Tests", "test\ExRam.Gremlinq.Providers.JanusGraph.Tests\ExRam.Gremlinq.Providers.JanusGraph.Tests.csproj", "{A1DA8260-60D7-4D47-A7FA-C83E727653D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Core.AspNet", "meta\Gremlinq.Core.AspNet\Gremlinq.Core.AspNet.csproj", "{152F6E96-4347-42CD-8ECF-672C542BE442}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Core", "meta\Gremlinq.Core\Gremlinq.Core.csproj", "{7F2C1C83-5161-45E2-B74A-E5EAD8A1A10D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.CosmosDb.AspNet", "meta\Gremlinq.Providers.CosmosDb.AspNet\Gremlinq.Providers.CosmosDb.AspNet.csproj", "{186FCB1F-56D2-46D2-9B78-3DDEEF0889A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.CosmosDb", "meta\Gremlinq.Providers.CosmosDb\Gremlinq.Providers.CosmosDb.csproj", "{483956A7-9841-43E6-AB84-6682FDC9C337}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.GremlinServer.AspNet", "meta\Gremlinq.Providers.GremlinServer.AspNet\Gremlinq.Providers.GremlinServer.AspNet.csproj", "{AA7E0375-2088-4B37-9867-7E259EBE49ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.GremlinServer", "meta\Gremlinq.Providers.GremlinServer\Gremlinq.Providers.GremlinServer.csproj", "{C5B9D1E3-7228-4EAD-8185-9A60F74D1F45}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.JanusGraph.AspNet", "meta\Gremlinq.Providers.JanusGraph.AspNet\Gremlinq.Providers.JanusGraph.AspNet.csproj", "{2F965AB0-32FB-4EED-8FAA-39A3705DA7F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.JanusGraph", "meta\Gremlinq.Providers.JanusGraph\Gremlinq.Providers.JanusGraph.csproj", "{7BAC7812-99B6-4B79-9480-E897C84E56C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.Neptune.AspNet", "meta\Gremlinq.Providers.Neptune.AspNet\Gremlinq.Providers.Neptune.AspNet.csproj", "{ABF1F75B-57A8-46B9-B4EE-FE55B92608DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.Neptune", "meta\Gremlinq.Providers.Neptune\Gremlinq.Providers.Neptune.csproj", "{C22A5822-96FE-4A0F-A093-80DD605ED1E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.WebSocket.AspNet", "meta\Gremlinq.Providers.WebSocket.AspNet\Gremlinq.Providers.WebSocket.AspNet.csproj", "{60D9CE5D-C808-4DE0-BC4E-164BF9B30310}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gremlinq.Providers.WebSocket", "meta\Gremlinq.Providers.WebSocket\Gremlinq.Providers.WebSocket.csproj", "{2DEAF295-8965-4660-93FE-8AD3ED985CB3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenchmarkRunner", "src\Benchmarks\BenchmarkRunner\BenchmarkRunner.csproj", "{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,10 +116,6 @@ Global
 		{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF5D779D-C31B-4C2F-80EC-29C2FC648DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF5D779D-C31B-4C2F-80EC-29C2FC648DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF5D779D-C31B-4C2F-80EC-29C2FC648DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF5D779D-C31B-4C2F-80EC-29C2FC648DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65F0D284-7DD6-40DA-8B89-BDAA02326DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{65F0D284-7DD6-40DA-8B89-BDAA02326DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65F0D284-7DD6-40DA-8B89-BDAA02326DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -150,6 +172,58 @@ Global
 		{A1DA8260-60D7-4D47-A7FA-C83E727653D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1DA8260-60D7-4D47-A7FA-C83E727653D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1DA8260-60D7-4D47-A7FA-C83E727653D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{152F6E96-4347-42CD-8ECF-672C542BE442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{152F6E96-4347-42CD-8ECF-672C542BE442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{152F6E96-4347-42CD-8ECF-672C542BE442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{152F6E96-4347-42CD-8ECF-672C542BE442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F2C1C83-5161-45E2-B74A-E5EAD8A1A10D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F2C1C83-5161-45E2-B74A-E5EAD8A1A10D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F2C1C83-5161-45E2-B74A-E5EAD8A1A10D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F2C1C83-5161-45E2-B74A-E5EAD8A1A10D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{186FCB1F-56D2-46D2-9B78-3DDEEF0889A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{186FCB1F-56D2-46D2-9B78-3DDEEF0889A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{186FCB1F-56D2-46D2-9B78-3DDEEF0889A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{186FCB1F-56D2-46D2-9B78-3DDEEF0889A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{483956A7-9841-43E6-AB84-6682FDC9C337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{483956A7-9841-43E6-AB84-6682FDC9C337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{483956A7-9841-43E6-AB84-6682FDC9C337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{483956A7-9841-43E6-AB84-6682FDC9C337}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA7E0375-2088-4B37-9867-7E259EBE49ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA7E0375-2088-4B37-9867-7E259EBE49ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA7E0375-2088-4B37-9867-7E259EBE49ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA7E0375-2088-4B37-9867-7E259EBE49ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5B9D1E3-7228-4EAD-8185-9A60F74D1F45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5B9D1E3-7228-4EAD-8185-9A60F74D1F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5B9D1E3-7228-4EAD-8185-9A60F74D1F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5B9D1E3-7228-4EAD-8185-9A60F74D1F45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F965AB0-32FB-4EED-8FAA-39A3705DA7F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F965AB0-32FB-4EED-8FAA-39A3705DA7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F965AB0-32FB-4EED-8FAA-39A3705DA7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F965AB0-32FB-4EED-8FAA-39A3705DA7F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BAC7812-99B6-4B79-9480-E897C84E56C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BAC7812-99B6-4B79-9480-E897C84E56C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BAC7812-99B6-4B79-9480-E897C84E56C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BAC7812-99B6-4B79-9480-E897C84E56C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABF1F75B-57A8-46B9-B4EE-FE55B92608DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABF1F75B-57A8-46B9-B4EE-FE55B92608DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABF1F75B-57A8-46B9-B4EE-FE55B92608DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABF1F75B-57A8-46B9-B4EE-FE55B92608DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22A5822-96FE-4A0F-A093-80DD605ED1E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22A5822-96FE-4A0F-A093-80DD605ED1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22A5822-96FE-4A0F-A093-80DD605ED1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22A5822-96FE-4A0F-A093-80DD605ED1E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60D9CE5D-C808-4DE0-BC4E-164BF9B30310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60D9CE5D-C808-4DE0-BC4E-164BF9B30310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60D9CE5D-C808-4DE0-BC4E-164BF9B30310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60D9CE5D-C808-4DE0-BC4E-164BF9B30310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DEAF295-8965-4660-93FE-8AD3ED985CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DEAF295-8965-4660-93FE-8AD3ED985CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DEAF295-8965-4660-93FE-8AD3ED985CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DEAF295-8965-4660-93FE-8AD3ED985CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,6 +244,19 @@ Global
 		{7C211878-D55B-444E-AFD0-4095A5B3573B} = {179A3F19-19B0-4DE2-B843-83AF4241244A}
 		{69C738C8-37D2-41DB-A8DE-00E38B22BCA6} = {179A3F19-19B0-4DE2-B843-83AF4241244A}
 		{A1DA8260-60D7-4D47-A7FA-C83E727653D1} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
+		{152F6E96-4347-42CD-8ECF-672C542BE442} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{7F2C1C83-5161-45E2-B74A-E5EAD8A1A10D} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{186FCB1F-56D2-46D2-9B78-3DDEEF0889A6} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{483956A7-9841-43E6-AB84-6682FDC9C337} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{AA7E0375-2088-4B37-9867-7E259EBE49ED} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{C5B9D1E3-7228-4EAD-8185-9A60F74D1F45} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{2F965AB0-32FB-4EED-8FAA-39A3705DA7F2} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{7BAC7812-99B6-4B79-9480-E897C84E56C6} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{ABF1F75B-57A8-46B9-B4EE-FE55B92608DF} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{C22A5822-96FE-4A0F-A093-80DD605ED1E5} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{60D9CE5D-C808-4DE0-BC4E-164BF9B30310} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{2DEAF295-8965-4660-93FE-8AD3ED985CB3} = {E944FDE9-B35D-4B16-B7A1-BF3644F5B7FA}
+		{08B239B3-1A9A-4D29-AF18-50B8EEAFF97A} = {2CD9652B-1596-4A02-AF9B-6CE149AB3F65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}

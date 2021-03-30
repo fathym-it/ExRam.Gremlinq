@@ -1,0 +1,53 @@
+<Project>
+  <Import Project="..\Directory.Build.props" />
+  
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+    <WeaverConfiguration>
+      <Weavers>
+        <NullGuard />
+        <ConfigureAwait/>
+      </Weavers>
+    </WeaverConfiguration>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\AssemblyInfo.cs" Link="AssemblyInfo.cs" />
+  </ItemGroup>
+  
+  <PropertyGroup Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples')) AND '$(Configuration)' == 'Release'" >
+    <PackageIcon>grey-icon.png</PackageIcon>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageTags>Gremlin;Tinkerpop;CosmosDB;JanusGraph;Neptune;Graph;GraphDB;</PackageTags>
+    <PackageIconUrl />
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('CosmosDb'))">blue-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('GremlinServer'))">green-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('JanusGraph'))">purple-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('Neptune'))">orange-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('WebSocket'))">yellow-icon.png</PackageIcon>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
+  <ItemGroup Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples')) AND '$(Configuration)' == 'Release'" >
+    <None Include="..\..\assets\$(PackageIcon)">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(MSBuildProjectName.StartsWith('ExRam.Gremlinq.Samples'))">
+    <PackageReference Include="Fody" Version="6.4.0" PrivateAssets="All" />
+    <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
+    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All" />
+  </ItemGroup>
+</Project>
