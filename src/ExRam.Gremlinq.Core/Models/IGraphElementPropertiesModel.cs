@@ -54,12 +54,20 @@ namespace ExRam.Gremlinq.Core
         public virtual Func<PropertyInfo, bool> ShouldSerialize { get; protected set; }
     }
 
-    public class GenericGraphElementPropertySerializer<T> : GraphElementPropertySerializer
+    public class GenericGraphElementPropertySerializer<T> : GenericGraphElementPropertySerializer
     {
         public GenericGraphElementPropertySerializer()
+            : base(typeof(T))
+        { }
+
+    }
+
+    public class GenericGraphElementPropertySerializer : GraphElementPropertySerializer
+    {
+        public GenericGraphElementPropertySerializer(Type propType)
             : base(pi =>
             {
-                return pi.PropertyType == typeof(T);
+                return pi.PropertyType == propType;
             },
             obj =>
             {
@@ -70,11 +78,11 @@ namespace ExRam.Gremlinq.Core
             },
             type =>
             {
-                return type == typeof(T);
+                return type == propType;
             },
             token =>
             {
-                return JsonConvert.DeserializeObject<T>(token[0]["value"].ToString()) ?? new object();
+                return JsonConvert.DeserializeObject(token[0]["value"].ToString(), propType) ?? new object();
             })
         { }
     }
